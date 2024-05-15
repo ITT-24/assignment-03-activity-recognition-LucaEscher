@@ -17,6 +17,9 @@ PERSON = 'luca'
 TEST_SIZE = 0.2  # 80/20 split
 RANDOM_STATE = 120
 
+# rbf accuracy = 0.9608 but it always predicts jumpingjacks in real life and therefore is not usable
+KERNEL = 'linear' # linear, rbf (non-linear), ...
+
 # use UPD (via WiFi) for communication
 PORT = 5700
 sensor = SensorUDP(PORT)
@@ -89,7 +92,7 @@ def preprocess_data(data: pd.DataFrame):
 
 # get accuracy score and classifier for continous prediction
 def get_classifier(X_train, X_test, y_train, y_test):
-    classifier = svm.SVC(kernel='linear')
+    classifier = svm.SVC(kernel=KERNEL)
     classifier.fit(X_train, y_train)
 
     y_pred = classifier.predict(X_test)
@@ -102,7 +105,7 @@ def get_classifier(X_train, X_test, y_train, y_test):
     return classifier
 
 
-def real_time_estimation(classifier):
+def real_time_prediction(classifier):
     if sensor.has_capability('accelerometer'):
         acc_x = float(sensor.get_value('accelerometer')['x'])
         acc_y = float(sensor.get_value('accelerometer')['y'])
@@ -114,8 +117,8 @@ def real_time_estimation(classifier):
         gyro_z = float(sensor.get_value('gyroscope')['z'])
 
     try:
-        estimation = classifier.predict([[acc_x, acc_y, acc_z, gyro_x, gyro_y, gyro_z]])
-        return estimation
+        prediction = classifier.predict([[acc_x, acc_y, acc_z, gyro_x, gyro_y, gyro_z]])
+        return prediction
     except:
         print('Something went wrong! Check if your input device is running and activliy sending data!')
 

@@ -12,22 +12,23 @@ sensor = SensorUDP(PORT)
 
 gathering_is_started = False
 running = True
+name = 'luca'
 activity = "jumpingjacks"
 number = 5
 
 # time that decides how many seconds the data will be gathered
 TIME = 10
+SAVE_FOLDER = 'data'
 
-# id is added in resample.py > therefore it is ignored here
+# id is added in resample.py or downsample.py > therefore it is ignored here
 csv_headers = ['timestamp', 'acc_x', 'acc_y', 'acc_z', 'gyro_x', 'gyro_y', 'gyro_z']
 start_time = 0
 data = []
 
 
 def save_data():
-    with open(f'./data/luca-{activity}-{number}.csv', 'w', encoding='UTF8') as f:
+    with open(f'./{SAVE_FOLDER}/{name}-{activity}-{number}.csv', 'w', encoding='UTF8') as f:
         writer = csv.writer(f)
-
         # add header row to csv
         writer.writerow(csv_headers)
         writer.writerows(data)
