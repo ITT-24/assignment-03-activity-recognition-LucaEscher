@@ -12,9 +12,9 @@ from DIPPID import SensorUDP
 """
 
 DATA_FOLDER = 'resampled_data'
-PERSON = 'luca'
+PERSON = 'johannes'
 
-TEST_SIZE = 0.2  # 80/20 split
+TEST_SIZE = 0.1  # 80/20 split
 RANDOM_STATE = 120
 
 # rbf accuracy = 0.9608 but it always predicts jumpingjacks in real life and therefore is not usable

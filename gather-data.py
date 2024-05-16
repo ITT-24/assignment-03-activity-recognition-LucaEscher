@@ -12,9 +12,10 @@ sensor = SensorUDP(PORT)
 
 gathering_is_started = False
 running = True
-name = 'luca'
+# AS: hard coded? :(
+name = 'andi'
 activity = "jumpingjacks"
-number = 5
+number = 1
 
 # time that decides how many seconds the data will be gathered
 TIME = 10
